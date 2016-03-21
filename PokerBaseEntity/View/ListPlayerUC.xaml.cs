@@ -12,23 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using PokerBaseEntity.View;
-namespace PokerBaseEntity
+
+namespace PokerBaseEntity.View
 {
-    /// <summary> 
-    /// Interaction logic for MainWindow.xaml
+    /// <summary>
+    /// Interaction logic for ListPlayerUC.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class ListPlayerUC : UserControl
     {
-        public MainWindow()
+        public ListPlayerUC()
         {
             InitializeComponent();
-        }
-
-        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
-        {
-            GetRequestWindow wnd=new GetRequestWindow();
-            wnd.Show();
         }
     }
 }

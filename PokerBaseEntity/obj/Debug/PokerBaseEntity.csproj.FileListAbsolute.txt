@@ -15,3 +15,7 @@ C:\Users\vlad\documents\visual studio 2013\Projects\PokerBaseEntity\PokerBaseEnt
 C:\Users\vlad\documents\visual studio 2013\Projects\PokerBaseEntity\PokerBaseEntity\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\vlad\documents\visual studio 2013\Projects\PokerBaseEntity\PokerBaseEntity\obj\Debug\View\MainWindow.baml
 C:\Users\vlad\documents\visual studio 2013\Projects\PokerBaseEntity\PokerBaseEntity\obj\Debug\View\MainWindow.g.cs
+C:\Users\vlad\Documents\Visual Studio 2013\Projects\PokerBaseEntity\PokerBaseEntity\obj\Debug\View\GetRequestWindow.baml
+C:\Users\vlad\Documents\Visual Studio 2013\Projects\PokerBaseEntity\PokerBaseEntity\obj\Debug\View\GetRequestWindow.g.cs
+C:\Users\vlad\Documents\Visual Studio 2013\Projects\PokerBaseEntity\PokerBaseEntity\obj\Debug\View\ListPlayerUC.baml
+C:\Users\vlad\Documents\Visual Studio 2013\Projects\PokerBaseEntity\PokerBaseEntity\obj\Debug\View\ListPlayerUC.g.cs

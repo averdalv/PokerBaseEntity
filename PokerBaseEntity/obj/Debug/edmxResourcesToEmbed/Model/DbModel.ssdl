@@ -24,6 +24,7 @@
     <Property Name="RegistrationDate" Type="datetime" />
     <Property Name="CityId" Type="int" Nullable="false" />
     <Property Name="DOB" Type="date" Nullable="false" />
+    <Property Name="Image" Type="nvarchar" MaxLength="40" />
   </EntityType>
   <EntityType Name="Tournament">
     <Key>

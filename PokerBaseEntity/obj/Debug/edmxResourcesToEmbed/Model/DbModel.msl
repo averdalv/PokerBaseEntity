@@ -20,6 +20,7 @@
     <EntitySetMapping Name="Players">
       <EntityTypeMapping TypeName="DbModel.Player">
         <MappingFragment StoreEntitySet="Player">
+          <ScalarProperty Name="Image" ColumnName="Image" />
           <ScalarProperty Name="DOB" ColumnName="DOB" />
           <ScalarProperty Name="PlayerId" ColumnName="PlayerId" />
           <ScalarProperty Name="PlayerName" ColumnName="PlayerName" />
