@@ -29,6 +29,7 @@
           <Property Name="RegistrationDate" Type="datetime" />
           <Property Name="CityId" Type="int" Nullable="false" />
           <Property Name="DOB" Type="date" Nullable="false" />
+          <Property Name="Image" Type="nvarchar" MaxLength="40" />
         </EntityType>
         <EntityType Name="Tournament">
           <Key>
@@ -178,6 +179,7 @@
           <NavigationProperty Name="City" Relationship="Self.FK_City_Player" FromRole="Player" ToRole="City" />
           <NavigationProperty Name="TournamentPlayers" Relationship="Self.FK_Tornam_Play_relation_Players" FromRole="Player" ToRole="TournamentPlayer" />
           <Property Name="DOB" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Image" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Tournament">
           <Key>
@@ -324,6 +326,7 @@
           <EntitySetMapping Name="Players">
             <EntityTypeMapping TypeName="DbModel.Player">
               <MappingFragment StoreEntitySet="Player">
+                <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="DOB" ColumnName="DOB" />
                 <ScalarProperty Name="PlayerId" ColumnName="PlayerId" />
                 <ScalarProperty Name="PlayerName" ColumnName="PlayerName" />

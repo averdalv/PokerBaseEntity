@@ -25,6 +25,7 @@ namespace PokerBaseEntity.Model
         public Nullable<System.DateTime> RegistrationDate { get; set; }
         public int CityId { get; set; }
         public System.DateTime DOB { get; set; }
+        public string Image { get; set; }
     
         public virtual City City { get; set; }
         public virtual ICollection<TournamentPlayer> TournamentPlayers { get; set; }
