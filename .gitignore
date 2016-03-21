@@ -51,7 +51,7 @@ build/
 *.pidb 
 *.log 
 *.scc 
-
+*.cache
 # OS generated files # 
 .DS_Store* 
 ehthumbs.db 
