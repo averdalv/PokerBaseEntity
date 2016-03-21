@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b59a9a2028d64c139f937e2a5a6315fd" Name="Diagram1">
+        <EntityTypeShape EntityType="DbModel.City" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbModel.Organization" Width="1.5" PointX="0.75" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbModel.Player" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbModel.Tournament" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DbModel.TournamentPlayer" Width="1.5" PointX="5.25" PointY="5.25" IsExpanded="true" />
+        <AssociationConnector Association="DbModel.FK_City_Player" ManuallyRouted="false" />
+        <AssociationConnector Association="DbModel.FK_City_Tournament" ManuallyRouted="false" />
+        <AssociationConnector Association="DbModel.FK_Organization_Tournament" ManuallyRouted="false" />
+        <AssociationConnector Association="DbModel.FK_Tornam_Play_relation_Players" ManuallyRouted="false" />
+        <AssociationConnector Association="DbModel.FK_Tornam_Play_relation_Tournaments" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

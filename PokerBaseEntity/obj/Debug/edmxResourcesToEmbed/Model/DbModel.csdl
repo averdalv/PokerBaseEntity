@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="City">
+    <Key>
+      <PropertyRef Name="CityId" />
+    </Key>
+    <Property Name="CityId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CityName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Players" Relationship="Self.FK_City_Player" FromRole="City" ToRole="Player" />
+    <NavigationProperty Name="Tournaments" Relationship="Self.FK_City_Tournament" FromRole="City" ToRole="Tournament" />
+  </EntityType>
+  <EntityType Name="Organization">
+    <Key>
+      <PropertyRef Name="OrganizationId" />
+    </Key>
+    <Property Name="OrganizationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OrganizationName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Tournaments" Relationship="Self.FK_Organization_Tournament" FromRole="Organization" ToRole="Tournament" />
+  </EntityType>
+  <EntityType Name="Player">
+    <Key>
+      <PropertyRef Name="PlayerId" />
+    </Key>
+    <Property Name="PlayerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PlayerName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Surname" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="RegistrationDate" Type="DateTime" Precision="3" />
+    <Property Name="CityId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="City" Relationship="Self.FK_City_Player" FromRole="Player" ToRole="City" />
+    <NavigationProperty Name="TournamentPlayers" Relationship="Self.FK_Tornam_Play_relation_Players" FromRole="Player" ToRole="TournamentPlayer" />
+    <Property Name="DOB" Type="DateTime" Nullable="false" Precision="0" />
+  </EntityType>
+  <EntityType Name="Tournament">
+    <Key>
+      <PropertyRef Name="TournamentId" />
+    </Key>
+    <Property Name="TournamentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Payment" Type="Int32" Nullable="false" />
+    <Property Name="IsOnline" Type="Boolean" Nullable="false" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="CityId" Type="Int32" Nullable="false" />
+    <Property Name="OrganizationId" Type="Int32" Nullable="false" />
+    <Property Name="TournamentName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="City" Relationship="Self.FK_City_Tournament" FromRole="Tournament" ToRole="City" />
+    <NavigationProperty Name="Organization" Relationship="Self.FK_Organization_Tournament" FromRole="Tournament" ToRole="Organization" />
+    <NavigationProperty Name="TournamentPlayers" Relationship="Self.FK_Tornam_Play_relation_Tournaments" FromRole="Tournament" ToRole="TournamentPlayer" />
+    <Property Name="WinRatio" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="TournamentPlayer">
+    <Key>
+      <PropertyRef Name="TournamentPlayerId" />
+    </Key>
+    <Property Name="PlayerId" Type="Int32" Nullable="false" />
+    <Property Name="TournamentId" Type="Int32" Nullable="false" />
+    <Property Name="TournamentPlayerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="Player" Relationship="Self.FK_Tornam_Play_relation_Players" FromRole="TournamentPlayer" ToRole="Player" />
+    <NavigationProperty Name="Tournament" Relationship="Self.FK_Tornam_Play_relation_Tournaments" FromRole="TournamentPlayer" ToRole="Tournament" />
+    <Property Name="Place" Type="Int32" />
+  </EntityType>
+  <Association Name="FK_City_Player">
+    <End Role="City" Type="Self.City" Multiplicity="1" />
+    <End Role="Player" Type="Self.Player" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="City">
+        <PropertyRef Name="CityId" />
+      </Principal>
+      <Dependent Role="Player">
+        <PropertyRef Name="CityId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_City_Tournament">
+    <End Role="City" Type="Self.City" Multiplicity="1" />
+    <End Role="Tournament" Type="Self.Tournament" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="City">
+        <PropertyRef Name="CityId" />
+      </Principal>
+      <Dependent Role="Tournament">
+        <PropertyRef Name="CityId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Organization_Tournament">
+    <End Role="Organization" Type="Self.Organization" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Tournament" Type="Self.Tournament" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Organization">
+        <PropertyRef Name="OrganizationId" />
+      </Principal>
+      <Dependent Role="Tournament">
+        <PropertyRef Name="OrganizationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tornam_Play_relation_Players">
+    <End Role="Player" Type="Self.Player" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="TournamentPlayer" Type="Self.TournamentPlayer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Player">
+        <PropertyRef Name="PlayerId" />
+      </Principal>
+      <Dependent Role="TournamentPlayer">
+        <PropertyRef Name="PlayerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tornam_Play_relation_Tournaments">
+    <End Role="Tournament" Type="Self.Tournament" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="TournamentPlayer" Type="Self.TournamentPlayer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tournament">
+        <PropertyRef Name="TournamentId" />
+      </Principal>
+      <Dependent Role="TournamentPlayer">
+        <PropertyRef Name="TournamentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="PokerPlayersContext" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Cities" EntityType="Self.City" />
+    <EntitySet Name="Organizations" EntityType="Self.Organization" />
+    <EntitySet Name="Players" EntityType="Self.Player" />
+    <EntitySet Name="Tournaments" EntityType="Self.Tournament" />
+    <EntitySet Name="TournamentPlayers" EntityType="Self.TournamentPlayer" />
+    <AssociationSet Name="FK_City_Player" Association="Self.FK_City_Player">
+      <End Role="City" EntitySet="Cities" />
+      <End Role="Player" EntitySet="Players" />
+    </AssociationSet>
+    <AssociationSet Name="FK_City_Tournament" Association="Self.FK_City_Tournament">
+      <End Role="City" EntitySet="Cities" />
+      <End Role="Tournament" EntitySet="Tournaments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Organization_Tournament" Association="Self.FK_Organization_Tournament">
+      <End Role="Organization" EntitySet="Organizations" />
+      <End Role="Tournament" EntitySet="Tournaments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tornam_Play_relation_Players" Association="Self.FK_Tornam_Play_relation_Players">
+      <End Role="Player" EntitySet="Players" />
+      <End Role="TournamentPlayer" EntitySet="TournamentPlayers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tornam_Play_relation_Tournaments" Association="Self.FK_Tornam_Play_relation_Tournaments">
+      <End Role="Tournament" EntitySet="Tournaments" />
+      <End Role="TournamentPlayer" EntitySet="TournamentPlayers" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
