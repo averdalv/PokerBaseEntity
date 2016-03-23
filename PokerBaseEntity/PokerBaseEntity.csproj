@@ -78,8 +78,11 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Model\DataBase.cs" />
     <Compile Include="ViewModel\RelayCommand.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
+    <Compile Include="ViewModel\ViewModelGetRequest.cs" />
+    <Compile Include="ViewModel\ViewModelListPlayer.cs" />
     <Compile Include="ViewModel\ViewModelMainWindow.cs" />
     <Compile Include="View\GetRequestWindow.xaml.cs">
       <DependentUpon>GetRequestWindow.xaml</DependentUpon>

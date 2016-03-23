@@ -1,7 +1,11 @@
 ﻿<Window x:Class="PokerBaseEntity.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:PokerBaseEntity.ViewModel"
         Title="MainWindow" Height="350" Width="525">
+    <Window.DataContext>
+        <local:ViewModelMainWindow/>
+    </Window.DataContext>
     <Window.Resources>
         <LinearGradientBrush StartPoint="0,0" EndPoint="1,1" x:Key="brush">
             <GradientStop Offset="0" Color="Black"></GradientStop>

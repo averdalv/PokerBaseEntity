@@ -1,7 +1,11 @@
 ﻿<Window x:Class="PokerBaseEntity.View.GetRequestWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:PokerBaseEntity.ViewModel"
         Title="GetRequestWindow" Height="350" Width="525">
+    <Window.DataContext>
+        <local:ViewModelGetRequest />
+    </Window.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
