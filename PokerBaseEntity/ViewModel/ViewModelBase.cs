@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace PokerBaseEntity.ViewModel
 {
@@ -20,6 +21,12 @@ namespace PokerBaseEntity.ViewModel
         }
         #endregion
 
-
+        public Window window;
+        public virtual void Show(ViewModelBase ViewModel,Window wnd)
+        {
+            window = wnd;
+            window.Show();
+        }
+    
     }
 }

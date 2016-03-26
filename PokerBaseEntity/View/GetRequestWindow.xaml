@@ -17,6 +17,7 @@
                 <RowDefinition Height="30"></RowDefinition>
                 <RowDefinition Height="30"></RowDefinition>
                 <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition Height="30"></RowDefinition>
                 <RowDefinition ></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -24,13 +25,41 @@
                 <ColumnDefinition ></ColumnDefinition>
             </Grid.ColumnDefinitions>
                 <TextBlock Text="Имя:" Grid.Row="0" Grid.Column="0"></TextBlock>
-                <TextBox Grid.Row="0" Grid.Column="1"></TextBox>
+                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Name}"></TextBox>
                 <TextBlock Text="Фамилия:" Grid.Row="1" Grid.Column="0"></TextBlock>
-                <TextBox Grid.Row="1" Grid.Column="1"></TextBox>
+                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding LastName}"></TextBox>
                 <TextBlock Text="Город:" Grid.Row="2" Grid.Column="0"></TextBlock>
-                <TextBox Grid.Row="2" Grid.Column="1"></TextBox>
+                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding City}"></TextBox>
                 <TextBlock Text="Дата рож.:" Grid.Row="3" Grid.Column="0"></TextBlock>
-                <TextBox Grid.Row="3" Grid.Column="1"></TextBox>
+                <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding DOB}"></TextBox>
+                <Button Content="Показать" Grid.Row="4" Command="{Binding ShowList}"></Button>
+                <Button Content="Показать всех" Grid.Row="4" Grid.Column="1" Command="{Binding ShowAll}"></Button>
+                
+               
+        </Grid>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            
+            <Grid Grid.Row="1">   
+                <DataGrid Grid.Row="1" AutoGenerateColumns="False" ItemsSource="{Binding Collection}" >
+                                <DataGrid.Columns>
+                                    <DataGridTemplateColumn Width="40">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Image Source="{Binding Image}" Height="Auto" Width="Auto"></Image>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTextColumn Header="Имя" Binding="{Binding Name}" />
+                                    <DataGridTextColumn Header="Фамилия" Binding="{Binding LastName}" />
+                                    <DataGridTextColumn Header="Город" Binding="{Binding City}" />
+                                    <DataGridTextColumn Header="Дата Рожд." Binding="{Binding DOB}" />
+                                </DataGrid.Columns>
+                </DataGrid>
+                </Grid>
         </Grid>
     </Grid>
 </Window>
