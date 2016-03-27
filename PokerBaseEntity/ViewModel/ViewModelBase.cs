@@ -8,7 +8,7 @@ using System.Windows;
 
 namespace PokerBaseEntity.ViewModel
 {
-    class ViewModelBase:INotifyPropertyChanged
+    class ViewModelBase: DependencyObject,INotifyPropertyChanged
     {
         #region INotifyPropertyChanged implementation
         public event PropertyChangedEventHandler PropertyChanged;
@@ -21,11 +21,11 @@ namespace PokerBaseEntity.ViewModel
         }
         #endregion
 
-        public Window window;
-        public virtual void Show(ViewModelBase ViewModel,Window wnd)
+        protected Window _window=null;
+        protected virtual void Show(ViewModelBase viewModel,Window wnd)
         {
-            window = wnd;
-            window.Show();
+            viewModel._window = wnd;
+            viewModel._window.Show();
         }
     
     }

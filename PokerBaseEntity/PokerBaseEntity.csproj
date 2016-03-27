@@ -66,10 +66,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\ListPlayerUC.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -79,16 +75,13 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Model\DataBase.cs" />
+    <Compile Include="ViewModel\DataBaseViewModel.cs" />
     <Compile Include="ViewModel\RelayCommand.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="ViewModel\ViewModelGetRequest.cs" />
-    <Compile Include="ViewModel\ViewModelListPlayer.cs" />
     <Compile Include="ViewModel\ViewModelMainWindow.cs" />
     <Compile Include="View\GetRequestWindow.xaml.cs">
       <DependentUpon>GetRequestWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\ListPlayerUC.xaml.cs">
-      <DependentUpon>ListPlayerUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

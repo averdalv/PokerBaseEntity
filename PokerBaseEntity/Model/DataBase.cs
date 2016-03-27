@@ -15,7 +15,7 @@ namespace PokerBaseEntity.Model
         public DateTime DOB { get; set; }
         public string Image { get; set; }
 
-        public static ObservableCollection<DataBase> GetPlayers(string Name=null,string LastName=null,string City=null,DateTime date=default(DateTime))
+        public static List<DataBase> GetPlayers(string Name=null,string LastName=null,string City=null,DateTime date=default(DateTime))
         {
             var context = new PokerPlayersContext();
             var players = from p in context.Players
@@ -24,7 +24,7 @@ namespace PokerBaseEntity.Model
                 where p.DOB == (date==default(DateTime)?p.DOB:date)
                 where (City==null?p.City.CityName:City)==p.City.CityName
                 select p;
-            ObservableCollection<DataBase> list = new ObservableCollection<DataBase>();
+            List<DataBase> list = new List<DataBase>();
             foreach (var player in players)
             {
                 DataBase db = new DataBase();
@@ -40,11 +40,11 @@ namespace PokerBaseEntity.Model
 
         }
 
-        public static ObservableCollection<DataBase> GetAll()
+        public static List<DataBase> GetAll()
         {
             var context = new PokerPlayersContext();
             var players = context.Players;
-            ObservableCollection<DataBase> list = new ObservableCollection<DataBase>();
+            List<DataBase> list = new List<DataBase>();
             foreach (var player in players)
             {
                 DataBase db = new DataBase();
