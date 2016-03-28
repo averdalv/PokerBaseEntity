@@ -9,7 +9,7 @@ namespace PokerBaseEntity.ViewModel
 {
     class DataBaseViewModel : ViewModelBase
     {
-        public DataBase dataBase;
+        private readonly DataBase dataBase;
 
         public DataBaseViewModel(DataBase dBase)
         {
@@ -18,6 +18,7 @@ namespace PokerBaseEntity.ViewModel
             LastName = dataBase.LastName;
             City = dataBase.City;
             DOB = dataBase.DOB;
+            DateOfBirth = DOB.Date.ToShortDateString();
             Image = dataBase.Image;
         }
 
@@ -26,6 +27,7 @@ namespace PokerBaseEntity.ViewModel
         private string _city;
         private DateTime _dob;
         private string _image;
+        private string _dateOfBirth;
         public string Name
         {
             get { return _name; }
@@ -87,6 +89,21 @@ namespace PokerBaseEntity.ViewModel
                 {
                     _image = value;
                     OnPropertyChanged("Image");
+                }
+            }
+        }
+        public string DateOfBirth
+        {
+            get
+            {
+                return _dateOfBirth;
+            }
+            set
+            {
+                if (value != _dateOfBirth)
+                {
+                    _dateOfBirth = value;
+                    OnPropertyChanged("DateOfBirth");
                 }
             }
         }

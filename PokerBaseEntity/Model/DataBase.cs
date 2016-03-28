@@ -15,15 +15,18 @@ namespace PokerBaseEntity.Model
         public DateTime DOB { get; set; }
         public string Image { get; set; }
 
-        public static List<DataBase> GetPlayers(string Name=null,string LastName=null,string City=null,DateTime date=default(DateTime))
+        public static List<DataBase> GetPlayers(string Name = null, string LastName = null, string City = null, DateTime date = default(DateTime))
         {
+            Name = (string.IsNullOrWhiteSpace(Name) ? null : Name);
+            LastName = (string.IsNullOrWhiteSpace(LastName) ? null : LastName);
+            City = (string.IsNullOrWhiteSpace(City) ? null : City);
             var context = new PokerPlayersContext();
             var players = from p in context.Players
-                where p.PlayerName == (Name==null?p.PlayerName:Name) 
-                where p.Surname == (LastName==null?p.Surname:LastName) 
-                where p.DOB == (date==default(DateTime)?p.DOB:date)
-                where (City==null?p.City.CityName:City)==p.City.CityName
-                select p;
+                          where p.PlayerName == (Name ?? p.PlayerName)
+                          where p.Surname == (LastName ?? p.Surname)
+                          where p.DOB == (date == default(DateTime) ? p.DOB : date)
+                          where p.City.CityName == (City ?? p.City.CityName)
+                          select p;
             List<DataBase> list = new List<DataBase>();
             foreach (var player in players)
             {
@@ -37,10 +40,9 @@ namespace PokerBaseEntity.Model
             }
             return list;
 
-
         }
 
-        public static List<DataBase> GetAll()
+        /*public static List<DataBase> GetAll()
         {
             var context = new PokerPlayersContext();
             var players = context.Players;
@@ -56,8 +58,7 @@ namespace PokerBaseEntity.Model
                 list.Add(db);
             }
             return list;
-
-
         }
+         * */
     }
 }

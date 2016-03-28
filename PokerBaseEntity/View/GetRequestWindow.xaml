@@ -25,13 +25,21 @@
                 <ColumnDefinition ></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <TextBlock Text="Name:" Grid.Row="0" Grid.Column="0"></TextBlock>
-            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Name}"></TextBox>
+            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Name,UpdateSourceTrigger=PropertyChanged}"></TextBox>
             <TextBlock Text="LastName:" Grid.Row="1" Grid.Column="0"></TextBlock>
-            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding LastName}"></TextBox>
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding LastName,UpdateSourceTrigger=PropertyChanged}"></TextBox>
             <TextBlock Text="City:" Grid.Row="2" Grid.Column="0"></TextBlock>
-            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding City}"></TextBox>
+            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding City,UpdateSourceTrigger=PropertyChanged}"></TextBox>
             <TextBlock Text="DOB.:" Grid.Row="3" Grid.Column="0"></TextBlock>
-            <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding DOB}"></TextBox>
+            <TextBox Grid.Row="3" Grid.Column="1">
+                <TextBox.Text>
+                    <Binding Path="DateOfBirth" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <DataErrorValidationRule />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
             <Button Content="Show" Grid.Row="4" Command="{Binding ShowList}"></Button>
             <Button Content="Show All" Grid.Row="4" Grid.Column="1" Command="{Binding ShowAll}" ></Button>
         </Grid>
@@ -67,7 +75,7 @@
                         <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"/>
                         <DataGridTextColumn Header="LastName" Binding="{Binding LastName}" Width="*"/>
                         <DataGridTextColumn Header="City" Binding="{Binding City}" Width="*"/>
-                        <DataGridTextColumn Header="Date of Birth" Binding="{Binding DOB}" Width="*" />
+                        <DataGridTextColumn Header="Date of Birth" Binding="{Binding DateOfBirth}" Width="*" />
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>
