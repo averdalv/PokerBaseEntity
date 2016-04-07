@@ -3,6 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              StartupUri="View/MainWindow.xaml">
     <Application.Resources>
-         
+       <!-- <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles/Core.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>  -->
+        <ResourceDictionary Source="/ReuxablesLegacy;component/inc.xaml" />       
     </Application.Resources>
 </Application>

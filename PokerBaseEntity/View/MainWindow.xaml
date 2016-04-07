@@ -28,6 +28,6 @@
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <Button Style="{StaticResource withBackground}" Content="Get Players" Command="{Binding OpenGetRequest}"></Button>
+        <Button Margin="10" Width="165" Height="40" Content="Get Players" Command="{Binding OpenGetRequest}"></Button>
     </Grid>
 </Window>

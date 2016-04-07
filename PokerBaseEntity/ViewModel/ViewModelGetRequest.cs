@@ -10,6 +10,8 @@ using System.Windows;
 using System.Windows.Input;
 using PokerBaseEntity.View;
 using PokerBaseEntity.Model;
+using Microsoft.Win32;
+using System.Windows.Controls;
 namespace PokerBaseEntity.ViewModel
 {
     class ViewModelGetRequest:ViewModelBase,IDataErrorInfo
@@ -50,12 +52,22 @@ namespace PokerBaseEntity.ViewModel
         private string _city;
         private DateTime _dob;
         private string _dateOfBirth;
-
-        private string _nameFilter;
-        private string _lastNameFilter;
-        private string _cityFilter;
-        private string _dobFilter;
-        
+        private bool _additionalParam;
+        public bool AdditionalParam
+        {
+            get
+            {
+                return _additionalParam;
+            }
+            set
+            {
+                if (value != _additionalParam)
+                {
+                    _additionalParam = value;
+                    OnPropertyChanged("AdditionalParam");
+                }
+            }
+        }
         public string Name
         {
             get
@@ -132,69 +144,64 @@ namespace PokerBaseEntity.ViewModel
             }
         }
 
-        public string NameFilter
+        private string imageSave;
+
+
+        public string Filter
         {
-            get
-            {
-                return _nameFilter;
-            }
-            set
-            {
-                if (value != _nameFilter)
-                {
-                    _nameFilter = value;
-                    OnPropertyChanged("NameFilter");
-                }
-            }
-        }
-        public string LastNameFilter
-        {
-            get
-            {
-                return _lastNameFilter;
-            }
-            set
-            {
-                if (value != _lastNameFilter)
-                {
-                    _lastNameFilter = value;
-                    OnPropertyChanged("LastNameFilter");
-                }
-            }
-        }
-        public string CityFilter
-        {
-            get
-            {
-                return _cityFilter;
-            }
-            set
-            {
-                if (value != _cityFilter)
-                {
-                    _cityFilter = value;
-                    OnPropertyChanged("CityFilter");
-                }
-            }
-        }
-        public string DOBFilter
-        {
-            get
-            {
-                return _dobFilter;
-            }
-            set
-            {
-                if (value != _dobFilter)
-                {
-                    _dobFilter = value;
-                    OnPropertyChanged("DOBFilter");
-                }
-            }
+                get { return (string)GetValue(FilterProperty); }
+                set { SetValue(FilterProperty, value); }
         }
 
+       
+        public static readonly DependencyProperty FilterProperty =
+            DependencyProperty.Register("Filter", typeof(string), typeof(ViewModelGetRequest), new PropertyMetadata(null,Filter_Changed));
+
+        private static void Filter_Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var current = d as ViewModelGetRequest;
+            if (current != null)
+            {
+                string str = current.Filter;
+                string []split = str.Split(new Char[]{' '});
+                string nameFlt = split.Length >= 1 ? split[0] : "";
+                string LnameFlt = split.Length >= 2 ? split[1] : "";
+                string cityFlt = split.Length >= 3 ? split[2] : "";
+                string dobFlt = split.Length >= 4 ? split[3] : "";
+                current.Collection = new ObservableCollection<DataBaseViewModel>(current.FullCollection.Where(b => b.Name.Contains(nameFlt)&&
+                    b.LastName.Contains(LnameFlt)&&b.City.Contains(cityFlt)&&b.DateOfBirth.Contains(dobFlt)));
+            }
+        }     
+        
         private ObservableCollection<DataBaseViewModel> _collection;
+        private ObservableCollection<DataBaseViewModel> _fullCollection;
+        private ObservableCollection<DataBaseTournament> _tournaments;
+        public ObservableCollection<DataBaseTournament> Tournaments
+        {
+            get { return _tournaments; }
 
+            set
+            {
+                if (_tournaments != value)
+                {
+                    _tournaments = value;
+                    OnPropertyChanged("Tournaments");
+                }
+            }
+        }
+        public ObservableCollection<DataBaseViewModel> FullCollection
+        {
+            get { return _fullCollection; }
+
+            set
+            {
+                if (_fullCollection != value)
+                {
+                    _fullCollection = value;
+                    OnPropertyChanged("FullCollection");
+                }
+            }
+        }
         public ObservableCollection<DataBaseViewModel> Collection
         {
             get { return _collection; }
@@ -211,18 +218,89 @@ namespace PokerBaseEntity.ViewModel
         
         public ICommand ShowList { get; set; }
         public ICommand ShowAll { get; set; }
-
+        public ICommand SavePlayer { get; set; }
+        public ICommand SelectPhoto { get; set; }
+        public ICommand DeletePlayer { get; set; }
+        public ICommand SelectedCellChangedCommand { get; set; }
         public ViewModelGetRequest()
         {
             ShowList=new RelayCommand(arg=>OpenList(),arg=>CanOpenList());
             ShowAll=new RelayCommand(arg=>OpenAll());
+            SelectPhoto = new RelayCommand(arg => SelectPh());
+            SavePlayer = new RelayCommand(arg => Save(),arg=>CanSave());
+            DeletePlayer = new RelayCommand(arg => Delete(), arg => CanDelete());
             Collection = new ObservableCollection<DataBaseViewModel>();
+            FullCollection = Collection;
+            Tournaments = new ObservableCollection<DataBaseTournament>();
+            var lst = DataBaseTournament.GetTourtnaments();
+            Tournaments = new ObservableCollection<DataBaseTournament>(lst);
+            //SelectedCellChangedCommand = new MyCommand(SelectedCellChanged);
+
+        }
+        private void Delete()
+        {
+            try
+            {   
+                if (DateOfBirth == null) DOB = default(DateTime);
+                else DOB = DateTime.Parse(DateOfBirth);
+               
+                DataBase.DeletePlayer(Name,LastName,City,DOB);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Error during adding");
+            }
+        }
+        private bool CanDelete()
+        {
+            return (error == null) && (!string.IsNullOrWhiteSpace(Name) || !string.IsNullOrWhiteSpace(LastName) || !string.IsNullOrWhiteSpace(City) || !string.IsNullOrWhiteSpace(DateOfBirth));
+        }
+        private void SelectedCellChanged(DataGridCellInfo cell)
+        {
+            DataBaseViewModel DB = cell.Item as DataBaseViewModel;
+            MessageBox.Show(DB.Name + " " + DB.LastName);
+
         }
 
+        private bool CanSave()
+        {
+            return (error == null) && (!string.IsNullOrWhiteSpace(Name) && !string.IsNullOrWhiteSpace(LastName) && !string.IsNullOrWhiteSpace(City) && !string.IsNullOrWhiteSpace(DateOfBirth));
+        }
+        private void Save()
+        {   
+            try{
+            DateTime dt=DateTime.Parse(DateOfBirth);
+                List<DataBaseTournament> DbT;
+                if (AdditionalParam)
+                    DbT = new List<DataBaseTournament>(Tournaments.Where(p => p.isChecked == true));
+                else DbT = null;
+                if(imageSave==null)
+                    DataBase.SavePlayer(Name, LastName, City, dt, DbT);
+                else
+            DataBase.SavePlayer(Name, LastName, City, dt, DbT, imageSave);
+                imageSave = null;
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Error during adding");
+            }
+        }
 
+        private void SelectPh()
+        {
+            OpenFileDialog myDialog = new OpenFileDialog();
+            myDialog.Filter = "Картинки(*.JPG;*.PNG)|*.JPG;*.PNG" + "|Все файлы (*.*)|*.*";
+            myDialog.CheckFileExists = true;
+            myDialog.Multiselect = true;
+            if (myDialog.ShowDialog() == true)
+            {
+                imageSave = myDialog.FileName;
+                if (imageSave.Substring(imageSave.LastIndexOf(".")+1) != "jpg" && imageSave.Substring(imageSave.LastIndexOf(".")+1) != "png") imageSave = null; ;
+            }
+        }
         private bool CanOpenList()
         {
-            return  (error==null)&&(!string.IsNullOrWhiteSpace(Name) || !string.IsNullOrWhiteSpace(LastName) || !string.IsNullOrWhiteSpace(City) || !string.IsNullOrWhiteSpace(DateOfBirth));
+            return  (error==null)&&(!string.IsNullOrWhiteSpace(Name) || !string.IsNullOrWhiteSpace(LastName) || !string.IsNullOrWhiteSpace(City) || !string.IsNullOrWhiteSpace(DateOfBirth)||AdditionalParam);
         }
         private void OpenList()
         {
@@ -230,9 +308,13 @@ namespace PokerBaseEntity.ViewModel
             {
                 if (DateOfBirth == null) DOB = default(DateTime);   
                 else DOB = DateTime.Parse(DateOfBirth);
-            
-            List<DataBase> list = DataBase.GetPlayers(Name,LastName,City,DOB);
-            Collection = new ObservableCollection<DataBaseViewModel>(list.Select(b => new DataBaseViewModel(b))); 
+                List<DataBaseTournament> tournam=new List<DataBaseTournament>();
+                if (AdditionalParam)
+                    tournam = new List<DataBaseTournament>(Tournaments.Where(p => p.isChecked == true));
+                else tournam = null;
+            List<DataBase> list = DataBase.GetPlayers(Name,LastName,City,DOB,tournam);
+            Collection = new ObservableCollection<DataBaseViewModel>(list.Select(b => new DataBaseViewModel(b)));
+            FullCollection = Collection;
             }
             catch(ArgumentNullException ex)
             {
@@ -242,6 +324,7 @@ namespace PokerBaseEntity.ViewModel
             {
                 List<DataBase> list = DataBase.GetPlayers(Name, LastName, City);
                 Collection = new ObservableCollection<DataBaseViewModel>(list.Select(b => new DataBaseViewModel(b)));
+                FullCollection = Collection;
                 
             }
 
@@ -251,14 +334,8 @@ namespace PokerBaseEntity.ViewModel
         {
            
             List<DataBase> list = DataBase.GetPlayers();
-            Collection = new ObservableCollection<DataBaseViewModel>(list.Select(b => new DataBaseViewModel(b)));     
-            /*Collection.Clear();
-            foreach (var a in list)
-            {
-                DataBaseViewModel db = new DataBaseViewModel(a);
-                Collection.Add(db);
-            }*/
-             
+            Collection = new ObservableCollection<DataBaseViewModel>(list.Select(b => new DataBaseViewModel(b)));
+            FullCollection = Collection;
         }       
     }
 }

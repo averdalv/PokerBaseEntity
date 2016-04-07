@@ -19,3 +19,10 @@ C:\Users\vlad\Documents\Visual Studio 2013\Projects\PokerBaseEntity\PokerBaseEnt
 C:\Users\vlad\Documents\Visual Studio 2013\Projects\PokerBaseEntity\PokerBaseEntity\obj\Debug\View\GetRequestWindow.g.cs
 C:\Users\vlad\documents\visual studio 2013\Projects\PokerBaseEntity\PokerBaseEntity\obj\Debug\GeneratedInternalTypeHelper.g.cs
 C:\Users\vlad\documents\visual studio 2013\Projects\PokerBaseEntity\PokerBaseEntity\obj\Debug\PokerBaseEntity_MarkupCompile.lref
+C:\Users\vlad\documents\visual studio 2013\Projects\PokerBaseEntity\PokerBaseEntity\obj\Debug\Styles\Brushes.baml
+C:\Users\vlad\documents\visual studio 2013\Projects\PokerBaseEntity\PokerBaseEntity\obj\Debug\Styles\Core.baml
+C:\Users\vlad\documents\visual studio 2013\Projects\PokerBaseEntity\PokerBaseEntity\obj\Debug\Styles\Core.g.cs
+C:\Users\vlad\documents\visual studio 2013\Projects\PokerBaseEntity\PokerBaseEntity\bin\Debug\ReuxablesLegacy.dll
+C:\Users\vlad\documents\visual studio 2013\Projects\PokerBaseEntity\PokerBaseEntity\obj\Debug\App.baml
+C:\Users\vlad\documents\visual studio 2013\Projects\PokerBaseEntity\PokerBaseEntity\obj\Debug\Styles\BureauBlack.baml
+C:\Users\vlad\documents\visual studio 2013\Projects\PokerBaseEntity\PokerBaseEntity\obj\Debug\Styles\ExpressionDark.baml
