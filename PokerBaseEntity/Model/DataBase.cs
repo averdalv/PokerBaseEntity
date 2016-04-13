@@ -83,12 +83,18 @@ namespace PokerBaseEntity.Model
             }
             else city=cities.Single();
             HashSet<Tournament> tournaments = new HashSet<Tournament>();
+            int len=Tournaments.Count;
+            int []places=new int[len];
                   if(Tournaments==null)tournaments=null;
                   else
                   {
+                      int i=0;
                       foreach(var T in Tournaments)
                       {
                           Tournament t = context.Tournaments.Where(p => p.TournamentName == T.TournamentName).Single();
+                          if (T.Place == null)
+                              places[i++] = -1;
+                          else places[i++]=Int32.Parse(T.Place);
                           tournaments.Add(t);
                       }
                   }
@@ -99,9 +105,13 @@ namespace PokerBaseEntity.Model
             ICollection<TournamentPlayer> TP=new HashSet<TournamentPlayer>();
             if (tournaments != null)
             {
+                int i=0;
                 foreach (var t in tournaments)
                 {
-                    TournamentPlayer tp = context.TournamentPlayers.Add(new TournamentPlayer { Player = player, Tournament = t });
+                    TournamentPlayer tp;
+                    if (places[i] != -1)
+                        tp = context.TournamentPlayers.Add(new TournamentPlayer { Player = player, Tournament = t, Place = places[i++] });
+                    else { tp = context.TournamentPlayers.Add(new TournamentPlayer { Player = player, Tournament = t }); i++; }
                     TP.Add(tp);
                 }
                 player.TournamentPlayers = TP;

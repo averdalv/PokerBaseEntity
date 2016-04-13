@@ -42,9 +42,37 @@ namespace PokerBaseEntity.ViewModel
                         
                             break;
                     }
+                    /*case "Place":
+                        {
+                            bool ok = true;
+                            List<DataBaseTournament> dbT = new List<DataBaseTournament>(Tournaments.Where(p => p.isChecked==true&&!string.IsNullOrWhiteSpace(p.Place)));
+                            foreach(var d in dbT)
+                            {    int p;
+                            if (!Int32.TryParse(d.Place, out p) || p <= 0 || p <= d.CountPlace) { error = "Incorrect place"; ok = false; }
+                            }
+                            if (ok) error = null;
+                            break;
+                        }*/
                 }
                 return error;
             }
+        }
+        private bool Err 
+        {
+            get 
+            {
+                bool ok = true;
+                List<DataBaseTournament> dbT = new List<DataBaseTournament>(Tournaments.Where(p => p.isChecked == true)); 
+                foreach(var d in dbT)
+                {
+                    if (d.Error != null) ok = false;
+                }
+                if (!ok || error != null) return true;
+                return false;
+                
+            }
+
+                                
         }
         #endregion
         private string _name;
@@ -253,18 +281,19 @@ namespace PokerBaseEntity.ViewModel
         }
         private bool CanDelete()
         {
-            return (error == null) && (!string.IsNullOrWhiteSpace(Name) || !string.IsNullOrWhiteSpace(LastName) || !string.IsNullOrWhiteSpace(City) || !string.IsNullOrWhiteSpace(DateOfBirth));
+            return (!Err) && (!string.IsNullOrWhiteSpace(Name) || !string.IsNullOrWhiteSpace(LastName) || !string.IsNullOrWhiteSpace(City) || !string.IsNullOrWhiteSpace(DateOfBirth));
         }
         private void SelectedCellChanged(DataGridCellInfo cell)
         {
-            DataBaseViewModel DB = cell.Item as DataBaseViewModel;
-            MessageBox.Show(DB.Name + " " + DB.LastName);
+           /* DataBaseViewModel DB = cell.Item as DataBaseViewModel;
+            DataBaseViewModel db = FullCollection.Where(p => p.Image == DB.Image&&p.DateOfBirth==DB.DateOfBirth).Single();
+            if (DB.Name != db.Name) { MessageBox.Show(DB.Name + " ---NEW name"); FullCollection.Remove(db); FullCollection.Add(DB); }*/
 
         }
 
         private bool CanSave()
         {
-            return (error == null) && (!string.IsNullOrWhiteSpace(Name) && !string.IsNullOrWhiteSpace(LastName) && !string.IsNullOrWhiteSpace(City) && !string.IsNullOrWhiteSpace(DateOfBirth));
+            return (!Err) && (!string.IsNullOrWhiteSpace(Name) && !string.IsNullOrWhiteSpace(LastName) && !string.IsNullOrWhiteSpace(City) && !string.IsNullOrWhiteSpace(DateOfBirth));
         }
         private void Save()
         {   
@@ -300,7 +329,7 @@ namespace PokerBaseEntity.ViewModel
         }
         private bool CanOpenList()
         {
-            return  (error==null)&&(!string.IsNullOrWhiteSpace(Name) || !string.IsNullOrWhiteSpace(LastName) || !string.IsNullOrWhiteSpace(City) || !string.IsNullOrWhiteSpace(DateOfBirth)||AdditionalParam);
+            return  (!Err)&&(!string.IsNullOrWhiteSpace(Name) || !string.IsNullOrWhiteSpace(LastName) || !string.IsNullOrWhiteSpace(City) || !string.IsNullOrWhiteSpace(DateOfBirth)||AdditionalParam);
         }
         private void OpenList()
         {

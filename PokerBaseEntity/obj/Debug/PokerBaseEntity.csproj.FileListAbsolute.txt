@@ -26,3 +26,5 @@ C:\Users\vlad\documents\visual studio 2013\Projects\PokerBaseEntity\PokerBaseEnt
 C:\Users\vlad\documents\visual studio 2013\Projects\PokerBaseEntity\PokerBaseEntity\obj\Debug\App.baml
 C:\Users\vlad\documents\visual studio 2013\Projects\PokerBaseEntity\PokerBaseEntity\obj\Debug\Styles\BureauBlack.baml
 C:\Users\vlad\documents\visual studio 2013\Projects\PokerBaseEntity\PokerBaseEntity\obj\Debug\Styles\ExpressionDark.baml
+C:\Users\vlad\documents\visual studio 2013\Projects\PokerBaseEntity\PokerBaseEntity\obj\Debug\View\GetTournamWindow.baml
+C:\Users\vlad\documents\visual studio 2013\Projects\PokerBaseEntity\PokerBaseEntity\obj\Debug\View\GetTournamWindow.g.cs

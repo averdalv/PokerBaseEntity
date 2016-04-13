@@ -1,0 +1,112 @@
+﻿<Window x:Class="PokerBaseEntity.View.GetTournamWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+         xmlns:local="clr-namespace:PokerBaseEntity.ViewModel"
+        Title="GetTournamWindow" Height="350" Width="525">
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="207"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="185"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Name:" Grid.Row="0" Grid.Column="0"></TextBlock>
+                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding TournamentName,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <TextBlock Text="Org." Grid.Row="1" Grid.Column="0"></TextBlock>
+                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Organization,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <TextBlock Text="City:" Grid.Row="2" Grid.Column="0"></TextBlock>
+                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding City,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <TextBlock Text="Date:" Grid.Row="3" Grid.Column="0"></TextBlock>
+                <TextBox Grid.Row="3" Grid.Column="1">
+                    <TextBox.Text>
+                        <Binding Path="Date" UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <DataErrorValidationRule />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+                <TextBlock Grid.Row="4" Text="Payment"></TextBlock>
+                <Grid Grid.Column="1" Grid.Row="4">
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    
+                    <Slider Grid.Row="0" Orientation="Horizontal" Value="{Binding Payment,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Maximum="999999" Minimum="0" />
+                    <TextBox Grid.Row="1" Text="{Binding Payment,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"></TextBox>
+                 </Grid>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="35"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Button Content="Show" Command="{Binding ShowList}"></Button>
+                <Button Content="ShowAll" Command="{Binding ShowAllTournaments}" Grid.Column="1"></Button>
+            </Grid>
+        </Grid>
+        
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0">Filter:</TextBlock>
+                <TextBox Text="{Binding Filter,UpdateSourceTrigger=PropertyChanged}" Grid.Column="1"></TextBox>
+            </Grid>
+            <Grid Grid.Row="1">
+                <DataGrid  AutoGenerateColumns="False" ItemsSource="{Binding Tournaments}">
+                    <DataGrid.Columns>
+                       
+                        <DataGridTemplateColumn Width="1.3*" Header="Players">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <ListBox>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Source="D:\\First.png"></Image>
+                                            <TextBlock Text="{Binding FirstPlace.Name}" />
+                                            <TextBlock Text=" " />
+                                            <TextBlock Text="{Binding FirstPlace.LastName}" />
+                                        </StackPanel>
+                                    </ListBox>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Header="Name" Binding="{Binding TournamentName}" FontSize="16"  Width="1*"/>
+                        <DataGridTextColumn Header="City" Binding="{Binding City}" FontSize="16" Width="*"/>
+                        <DataGridTextColumn Header="Date" Binding="{Binding DATE}" FontSize="16" Width="*" />
+                        <DataGridTextColumn Header="Org." Binding="{Binding Organization}" FontSize="16" Width="*" />
+                        <DataGridTextColumn Header="Payment" Binding="{Binding Payment}"  FontSize="16" Width="*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+            
+        </Grid>
+    </Grid>
+</Window>

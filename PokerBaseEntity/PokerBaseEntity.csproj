@@ -85,6 +85,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\GetTournamWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -100,9 +104,13 @@
     <Compile Include="ViewModel\RelayCommand.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="ViewModel\ViewModelGetRequest.cs" />
+    <Compile Include="ViewModel\ViewModelGetTournaments.cs" />
     <Compile Include="ViewModel\ViewModelMainWindow.cs" />
     <Compile Include="View\GetRequestWindow.xaml.cs">
       <DependentUpon>GetRequestWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\GetTournamWindow.xaml.cs">
+      <DependentUpon>GetTournamWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

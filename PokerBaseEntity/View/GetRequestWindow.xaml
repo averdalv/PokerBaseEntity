@@ -4,9 +4,7 @@
         xmlns:local="clr-namespace:PokerBaseEntity.ViewModel"
         xmlns:behavior="clr-namespace:PokerBaseEntity.ViewModel"
         Title="GetRequestWindow" Height="350" Width="525">
-    <Window.DataContext>
-        <local:ViewModelGetRequest />
-    </Window.DataContext>
+   
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="207"></ColumnDefinition>
@@ -65,7 +63,22 @@
                         <ListBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Tournaments}" >
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
-                                    <CheckBox Content="{Binding TournamentName}" IsChecked="{Binding isChecked}" FontSize="14"  ></CheckBox>  
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition></ColumnDefinition>
+                                            <ColumnDefinition></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <CheckBox Grid.Column="0" Content="{Binding TournamentName}" IsChecked="{Binding isChecked}" FontSize="14"  ></CheckBox>
+                                        <TextBox Grid.Column="1" IsEnabled="{Binding isChecked,UpdateSourceTrigger=PropertyChanged}">
+                                            <TextBox.Text>
+                                                <Binding Path="Place" UpdateSourceTrigger="PropertyChanged">
+                                                    <Binding.ValidationRules>
+                                                        <DataErrorValidationRule />
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>
+                                    </Grid>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>

@@ -21,12 +21,12 @@ namespace PokerBaseEntity.ViewModel
         }
         #endregion
 
-        protected Window _window=null;
+        /*protected Window _window=null;
         protected virtual void Show(ViewModelBase viewModel,Window wnd)
         {
             viewModel._window = wnd;
             viewModel._window.Show();
         }
-    
+    */
     }
 }

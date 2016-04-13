@@ -28,6 +28,7 @@
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <Button Margin="10" Width="165" Height="40" Content="Get Players" Command="{Binding OpenGetRequest}"></Button>
+        <Button Margin="10" Width="165" Height="40" Content="Get Players"  Command="{Binding OpenGetRequest}"></Button>
+        <Button Grid.Row="1"  Margin="10" Width="165" Height="40" Content="Get Tournaments" Command="{Binding OpenGetTournaments}"></Button>
     </Grid>
 </Window>

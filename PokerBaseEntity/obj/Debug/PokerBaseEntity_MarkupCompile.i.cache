@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\vlad\documents\visual studio 2013\Projects\PokerBaseEntity\PokerBaseEntity\App.xaml
-61924467257
+7-576011531
 
-26837807714
+28-611924029
 18958164343
-Styles\Brushes.xaml;Styles\BureauBlack.xaml;Styles\Core.xaml;Styles\ExpressionDark.xaml;View\GetRequestWindow.xaml;View\MainWindow.xaml;
+Styles\Brushes.xaml;Styles\BureauBlack.xaml;Styles\Core.xaml;Styles\ExpressionDark.xaml;View\GetRequestWindow.xaml;View\GetTournamWindow.xaml;View\MainWindow.xaml;
 
-True
+False
 

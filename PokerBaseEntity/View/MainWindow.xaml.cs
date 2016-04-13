@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using PokerBaseEntity.View;
+using PokerBaseEntity.ViewModel;
 namespace PokerBaseEntity
 {
     /// <summary> 
@@ -28,6 +29,13 @@ namespace PokerBaseEntity
         private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
         {
             GetRequestWindow wnd=new GetRequestWindow();
+            wnd.DataContext=new ViewModelGetRequest();
+            wnd.Show();
+        }
+        private void ButtonBase1_OnClick(object sender, RoutedEventArgs e)
+        {
+            GetRequestWindow wnd=new GetRequestWindow();
+            wnd.DataContext = new ViewModelGetTournaments();
             wnd.Show();
         }
     }
