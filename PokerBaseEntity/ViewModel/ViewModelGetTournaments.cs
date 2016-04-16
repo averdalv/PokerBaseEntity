@@ -114,9 +114,11 @@ namespace PokerBaseEntity.ViewModel
                 }
             }
         }
-        private ObservableCollection<DataBaseTournament> _tournaments;
-        private ObservableCollection<DataBaseTournament> _fullTournaments;
-        public ObservableCollection<DataBaseTournament> Tournaments
+       
+          
+        private ObservableCollection<TournamentsViewModel> _tournaments;
+        private ObservableCollection<TournamentsViewModel> _fullTournaments;
+        public ObservableCollection<TournamentsViewModel> Tournaments
         {
             get { return _tournaments; }
 
@@ -129,7 +131,7 @@ namespace PokerBaseEntity.ViewModel
                 }
             }
         }
-        public ObservableCollection<DataBaseTournament> FullTournaments
+        public ObservableCollection<TournamentsViewModel> FullTournaments
         {
             get { return _fullTournaments; }
 
@@ -165,7 +167,7 @@ namespace PokerBaseEntity.ViewModel
                 string cityFlt = split.Length >= 2 ? split[1] : "";
                 string dateFlt = split.Length >= 3 ? split[2] : "";
                 string orgFlt = split.Length >= 4 ? split[3] : "";
-                current.Tournaments = new ObservableCollection<DataBaseTournament>(current.FullTournaments.Where(b => b.TournamentName.Contains(nameFlt) &&
+                current.Tournaments = new ObservableCollection<TournamentsViewModel>(current.FullTournaments.Where(b => b.TournamentName.Contains(nameFlt) &&
                     b.City.Contains(cityFlt) && b.DATE.Contains(dateFlt) && b.Organization.Contains(orgFlt)));
             }
         }
@@ -186,14 +188,14 @@ namespace PokerBaseEntity.ViewModel
             var current = d as ViewModelGetTournaments;
             if(current!=null)
             {
-                current.Tournaments = new ObservableCollection<DataBaseTournament>(current.FullTournaments.Where(b => b.Payment >=current.Payment));
+                current.Tournaments = new ObservableCollection<TournamentsViewModel>(current.FullTournaments.Where(b => b.Payment >= current.Payment));
             }
         }
         
         public ViewModelGetTournaments()
         {
-            Tournaments = new ObservableCollection<DataBaseTournament>();
-            FullTournaments = new ObservableCollection<DataBaseTournament>();
+            Tournaments = new ObservableCollection<TournamentsViewModel>();
+            FullTournaments = new ObservableCollection<TournamentsViewModel>();
             ShowAllTournaments = new RelayCommand(arg => ShowAll());
             ShowList = new RelayCommand(arg => Show(), arg => CanShow());
         }
@@ -205,21 +207,21 @@ namespace PokerBaseEntity.ViewModel
                 if (Date == null) DOB = default(DateTime);
                 else DOB = DateTime.Parse(Date);
                 List<DataBaseTournament> list = DataBaseTournament.GetTourtnaments(Payment, false, DOB, City, Organization, TournamentName);
-                Tournaments = new ObservableCollection<DataBaseTournament>(list);
+                Tournaments = new ObservableCollection<TournamentsViewModel>(list.Select(b=>new TournamentsViewModel(b)));
                 FullTournaments = Tournaments;
               
             }
             catch(Exception ex)
             {
                 List<DataBaseTournament> list = DataBaseTournament.GetTourtnaments();
-                Tournaments = new ObservableCollection<DataBaseTournament>(list);
+                Tournaments = new ObservableCollection<TournamentsViewModel>(list.Select(b => new TournamentsViewModel(b)));
                 FullTournaments = Tournaments;
             }
         }
         private void ShowAll()
         {
             List<DataBaseTournament> list = DataBaseTournament.GetTourtnaments();
-            Tournaments = new ObservableCollection<DataBaseTournament>(list);
+            Tournaments = new ObservableCollection<TournamentsViewModel>(list.Select(b => new TournamentsViewModel(b)));
             FullTournaments = Tournaments;
         }
         private bool CanShow()

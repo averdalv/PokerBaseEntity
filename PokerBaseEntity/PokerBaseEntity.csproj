@@ -102,6 +102,7 @@
     <Compile Include="ViewModel\DataBaseViewModel.cs" />
     <Compile Include="ViewModel\DataGridBehavior.cs" />
     <Compile Include="ViewModel\RelayCommand.cs" />
+    <Compile Include="ViewModel\TournamentsViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="ViewModel\ViewModelGetRequest.cs" />
     <Compile Include="ViewModel\ViewModelGetTournaments.cs" />
