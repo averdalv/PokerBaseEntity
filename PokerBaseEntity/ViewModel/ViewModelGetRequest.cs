@@ -268,15 +268,30 @@ namespace PokerBaseEntity.ViewModel
         private void Delete()
         {
             try
-            {   
-                if (DateOfBirth == null) DOB = default(DateTime);
-                else DOB = DateTime.Parse(DateOfBirth);
-               
-                DataBase.DeletePlayer(Name,LastName,City,DOB);
-            }
-            catch(Exception ex)
             {
-                MessageBox.Show("Error during adding");
+                DateTime dateTime;
+                if (DateOfBirth == null) DOB = default(DateTime);
+                else
+                {
+                    try
+                    {
+                        DateTime.TryParse(DateOfBirth, out dateTime);
+                        DOB = dateTime;
+                    }
+                    catch (Exception e)
+                    {
+                        DOB = default(DateTime);
+                        DataBase.DeletePlayer(Name, LastName, City, DOB);
+                        MessageBox.Show("Delete Completed");
+                    }
+                }
+
+                DataBase.DeletePlayer(Name, LastName, City, DOB);
+                MessageBox.Show("Delete Completed");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error during deleting\n" + ex.Message);
             }
         }
         private bool CanDelete()
@@ -296,22 +311,24 @@ namespace PokerBaseEntity.ViewModel
             return (!Err) && (!string.IsNullOrWhiteSpace(Name) && !string.IsNullOrWhiteSpace(LastName) && !string.IsNullOrWhiteSpace(City) && !string.IsNullOrWhiteSpace(DateOfBirth));
         }
         private void Save()
-        {   
-            try{
-            DateTime dt=DateTime.Parse(DateOfBirth);
+        {
+            try
+            {
+                DateTime dt = DateTime.Parse(DateOfBirth);
                 List<DataBaseTournament> DbT;
                 if (AdditionalParam)
                     DbT = new List<DataBaseTournament>(Tournaments.Where(p => p.isChecked == true));
                 else DbT = null;
-                if(imageSave==null)
+                if (imageSave == null)
                     DataBase.SavePlayer(Name, LastName, City, dt, DbT);
                 else
-            DataBase.SavePlayer(Name, LastName, City, dt, DbT, imageSave);
+                    DataBase.SavePlayer(Name, LastName, City, dt, DbT, imageSave);
                 imageSave = null;
+                MessageBox.Show("Saved");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                MessageBox.Show("Error during adding");
+                MessageBox.Show("Error during adding\n" + ex.Message);
             }
         }
 

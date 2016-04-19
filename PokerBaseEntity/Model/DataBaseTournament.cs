@@ -90,10 +90,13 @@ namespace PokerBaseEntity.Model
                     var player = a.Player;
                     DataBase DatB=new DataBase();
                     DatB = DatB.ToDataBase(player);
-                    maxPlace = Math.Max((int)a.Place, maxPlace);
-                    if (a.Place == 1) db.FirstPlace = DatB;
-                    else if (a.Place == 2) db.SecondPlace = DatB;
-                    else if (a.Place == 3) db.ThirdPlace = DatB;
+                    if (a.Place != null)
+                    {
+                        maxPlace = Math.Max((int)a.Place, maxPlace);
+                        if (a.Place == 1) db.FirstPlace = DatB;
+                        else if (a.Place == 2) db.SecondPlace = DatB;
+                        else if (a.Place == 3) db.ThirdPlace = DatB;
+                    }
                     listDataBase.Add(DatB);
                 }
                 db.CountPlayers = countPl;

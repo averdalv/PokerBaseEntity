@@ -83,8 +83,14 @@ namespace PokerBaseEntity.Model
             }
             else city=cities.Single();
             HashSet<Tournament> tournaments = new HashSet<Tournament>();
-            int len=Tournaments.Count;
-            int []places=new int[len];
+            int len;
+            int []places;
+            if(Tournaments!=null)
+            {
+                len=Tournaments.Count;
+                places=new int[len];
+            }
+            else places=null;
                   if(Tournaments==null)tournaments=null;
                   else
                   {
